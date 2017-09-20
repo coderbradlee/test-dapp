@@ -26,7 +26,7 @@ func simed() {
 	chairmanKey, _ := crypto.GenerateKey()
 	chairmanAuth := bind.NewKeyedTransactor(chairmanKey)
 	chairmanAddr := chairmanAuth.From
-	chairmanAccount := core.GenesisAccount{chairmanAddr:{Balance: chairmanBalance}}
+	chairmanAccount := core.GenesisAccount{chairmanAuth.From:{Balance: chairmanBalance}}
 	secondKey, _ := crypto.GenerateKey()
 	secondAuth := bind.NewKeyedTransactor(secondKey)
 	secondAddr:=secondAuth.From
