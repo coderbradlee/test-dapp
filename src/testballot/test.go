@@ -87,7 +87,7 @@ func main() {
 	ballot.Vote(account1Transactor,big.NewInt(int64(1)))
 	// ballot.Vote(account0Transactor,big.NewInt(int64(2)))
 	// ballot.Vote(account0Transactor,big.NewInt(int64(3)))
-	time.Sleep(2000 * time.Millisecond)
+	time.Sleep(8000 * time.Millisecond)
 	printVoters(ballot,firstAccount)
 	printVoters(ballot,secondAccount)
 	printProposals(ballot)
