@@ -19,9 +19,13 @@ import (
 
 
 func main() {
-	key := `{"address":"390bae9e7e9684a09b1aa73590eee3e78add44a0","crypto":{"cipher":"aes-128-ctr","ciphertext":"7d598fb7bad75120ea4f43250c52363773058dee3879db1d7a078e0d2675ffdf","cipherparams":{"iv":"3b11c9ec8d98fb7232f1f3ca1f057482"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"1e70cec326fb861773828c86e298714cfb553be06e108768359e33b782b11d3e"},"mac":"e3077a460009ff184b03e1eca47440dc3d3e9eddfe933270e304893310d81706"},"id":"4ec991ef-ae20-421e-ba31-ad36a6b08efe","version":3}`
-	auth, err := bind.NewTransactor(strings.NewReader(key), "123456")
-	  if err != nil {
+	
+	account0Transactor, err := bind.NewTransactor(strings.NewReader(key), "123456")
+	if err != nil {
+	    log.Fatalf("Failed to create authorized transactor: %v", err)
+	  }
+	account1Transactor, err := bind.NewTransactor(strings.NewReader(key1), "123456")
+	if err != nil {
 	    log.Fatalf("Failed to create authorized transactor: %v", err)
 	  }
 
@@ -47,9 +51,7 @@ func main() {
 	var array4  = [32]byte{0:'d',1:'d'}
 	var proposalNames =[][32]byte{array1,array2,array3,array4}
 
-
-	// Deploy a token contract on the simulated blockchain
-	contractAddr, transaction, ballot, err := DeployBallot(auth, conn, proposalNames)
+	contractAddr, transaction, ballot, err := DeployBallot(account0Transactor, conn, proposalNames)
 	if err != nil {
 		log.Fatalf("Failed to deploy new token contract: %v\n", err)
 	}
@@ -78,11 +80,11 @@ func main() {
 	printVoters(ballot,firstAccount)
 	printVoters(ballot,secondAccount)
 	printProposals(ballot)
-	ballot.GiveRightToVote(auth,secondAccount)
-	ballot.Vote(auth,big.NewInt(int64(0)))
-	// ballot.Vote(auth,big.NewInt(int64(1)))
-	// ballot.Vote(auth,big.NewInt(int64(2)))
-	// ballot.Vote(auth,big.NewInt(int64(3)))
+	ballot.GiveRightToVote(account0Transactor,secondAccount)
+	ballot.Vote(account0Transactor,big.NewInt(int64(0)))
+	// ballot.Vote(account0Transactor,big.NewInt(int64(1)))
+	// ballot.Vote(account0Transactor,big.NewInt(int64(2)))
+	// ballot.Vote(account0Transactor,big.NewInt(int64(3)))
 	time.Sleep(2000 * time.Millisecond)
 	printVoters(ballot,firstAccount)
 	printVoters(ballot,secondAccount)
