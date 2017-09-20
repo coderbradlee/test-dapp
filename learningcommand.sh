@@ -1,15 +1,15 @@
-
+Ôªø
 git config --global credential.helper wincred
-git º«◊°√‹¬Î
+git ËÆ∞‰ΩèÂØÜÁ†Å
 //geth --datadir "ethdevdata" --dev --rpc --rpcaddr "0.0.0.0" console 2>>file_to_log_output
 geth --identity "phoenix"  --rpc  --rpccorsdomain "*" --datadir "/root/ethdevdata"  --dev --rpc --rpcaddr "0.0.0.0" --rpcapi "db,eth,net,web3" --networkid 98888 console 2>>file_to_log_output
-//∆Ù∂Ø¡Ì“ª∏ˆ÷’∂À¿¥◊˜Œ™console
+//ÂêØÂä®Âè¶‰∏Ä‰∏™ÁªàÁ´ØÊù•‰Ωú‰∏∫console
 //geth --dev console 2>>file_to_log_output
 
-//≤Èø¥’À∫≈
+//Êü•ÁúãË¥¶Âè∑
 eth.accounts
 
-¥¥Ω®“ª∏ˆ–¬’Àªß
+ÂàõÂª∫‰∏Ä‰∏™Êñ∞Ë¥¶Êà∑
 personal.newAccount('123456')
 
 user1=eth.accounts[0]
@@ -20,13 +20,13 @@ eth.getBalance(user2)
 miner.start()
 miner.stop()
 
-user1œÚuser2◊™“∆“‘Ã´±“
+user1Âêëuser2ËΩ¨Áßª‰ª•Â§™Â∏Å
 eth.sendTransaction({from: user1,to: user2,value: web3.toWei(3,"ether")})
 
 personal.unlockAccount(user1,'123456')
 eth.sendTransaction({from: user1,to: user2,value: web3.toWei(3,"ether")})
 
-÷«ƒ‹∫œ‘º
+Êô∫ËÉΩÂêàÁ∫¶
 contract test {  
     function multiply(uint a) returns(uint d) {  
         return a * 7;   
@@ -34,8 +34,8 @@ contract test {
 }  
 source = "contract test { function multiply(uint a) returns(uint d) { return a * 7; } }"
 contract = eth.compile.solidity(source).test
-“‘…œ”Ôæ‰±®¥Ì
-”√“‘œ¬∑Ω∑®£∫
+‰ª•‰∏äËØ≠Âè•Êä•Èîô
+Áî®‰ª•‰∏ãÊñπÊ≥ïÔºö
 
  /////////////////////////////////////////////////////////////
  solc --bin Test.sol
@@ -44,32 +44,32 @@ abi = JSON.parse('[{"constant":false,"inputs":[{"name":"a","type":"uint256"}],"n
 
 bytecode = '0x60606040523415600e57600080fd5b60a98061001c6000396000f30060606040526000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063c6888fa114603c57600080fd5b3415604657600080fd5b605a60048080359060200190919050506070565b6040518082815260200191505060405180910390f35b60006007820290509190505600a165627a7a723058205f6f417a1ebd4d6c82f954c8b45fc6a9426b320aff6b40b7c8c6ff1894eb23390029'
 
- ∂¡»°abiŒƒº˛∫ÕbinŒƒº˛
+ ËØªÂèñabiÊñá‰ª∂ÂíåbinÊñá‰ª∂
 
  >contract = eth.contract(abi)
  >deployed = contract.new({from: eth.accounts[0], data: bytecode, gas: 1000000})
-deployedæÕ «≤ø µƒ µ¿˝¡À£¨contract.newæÕ «≤ø £¨Ω” ’µƒ≤Œ ˝¿Ôfrom±Ì æ”√ƒƒ∏ˆ’À∫≈»•¥¥Ω®£¨’‚∏ˆ’À∫≈µƒµÿ÷∑æÕª· «contractgππ‘Ï∫Ø ˝¿Ôµƒƒ«∏ˆmsg.sender£¨“≤æÕ «’‚∏ˆ∫œ‘º“‘∫Ûµƒowner¡À
+deployedÂ∞±ÊòØÈÉ®ÁΩ≤ÁöÑÂÆû‰æã‰∫ÜÔºåcontract.newÂ∞±ÊòØÈÉ®ÁΩ≤ÔºåÊé•Êî∂ÁöÑÂèÇÊï∞ÈáåfromË°®Á§∫Áî®Âì™‰∏™Ë¥¶Âè∑ÂéªÂàõÂª∫ÔºåËøô‰∏™Ë¥¶Âè∑ÁöÑÂú∞ÂùÄÂ∞±‰ºöÊòØcontractgÊûÑÈÄ†ÂáΩÊï∞ÈáåÁöÑÈÇ£‰∏™msg.senderÔºå‰πüÂ∞±ÊòØËøô‰∏™ÂêàÁ∫¶‰ª•ÂêéÁöÑowner‰∫Ü
 personal.unlockAccount(user1,'123456')
 deployed.multiply.call(3)
-ªÚ’ﬂ
+ÊàñËÄÖ
   >c = eth.contract(abi)
   >instance = c.at("0x69a4c171e4ff1e60985b15cdbaa398b94081c699")
- ◊œ»∏˘æ›abiŒƒº˛ππ‘Ï∫œ‘ºΩ”ø⁄£¨»ª∫Û÷∏œÚ∫œ‘º≤ø µƒµÿ÷∑
+È¶ñÂÖàÊ†πÊçÆabiÊñá‰ª∂ÊûÑÈÄ†ÂêàÁ∫¶Êé•Âè£ÔºåÁÑ∂ÂêéÊåáÂêëÂêàÁ∫¶ÈÉ®ÁΩ≤ÁöÑÂú∞ÂùÄ
 >instance.multiply.call(3)
 >instance.multiply(3, {from:eth.accounts[0]})
 personal.unlockAccount(user1,'123456')
 
-testsol ≤ø µÿ÷∑0x4a8822c83e2dccec89e8c90c3638145976aaf9df
+testsol ÈÉ®ÁΩ≤Âú∞ÂùÄ0x4a8822c83e2dccec89e8c90c3638145976aaf9df
 
-≤ø  µ¿˝∫Ûµƒµÿ÷∑ «undefined£¨“ÚŒ™Ωª“◊≤≈∑¢ÀÕ≥ˆ»•£¨√ª”–øÛπ§Õ⁄øÛ£¨√ª”––¥Ω¯«¯øÈ¡¥£¨À˘“‘ªπ≤ª÷™µ¿°£œ÷‘⁄ø…“‘”√txpool.status≤Èø¥µΩ£¨Õ⁄øÛ∫Ûconsole ‰»Îdeployedø…ø¥µΩaddress£¨æÕ «¥À∫œ‘ºµÿ÷∑
-
-
-∆Ù∂ØÕ⁄øÛ£¨∞—Ωª“◊–¥Ω¯«¯øÈ¡¥°£miner.start()£¨»ª∫Ûπÿ±’Õ⁄øÛminer.stop()
+ÈÉ®ÁΩ≤ÂÆû‰æãÂêéÁöÑÂú∞ÂùÄÊòØundefinedÔºåÂõ†‰∏∫‰∫§ÊòìÊâçÂèëÈÄÅÂá∫ÂéªÔºåÊ≤°ÊúâÁüøÂ∑•ÊåñÁüøÔºåÊ≤°ÊúâÂÜôËøõÂå∫ÂùóÈìæÔºåÊâÄ‰ª•Ëøò‰∏çÁü•ÈÅì„ÄÇÁé∞Âú®ÂèØ‰ª•Áî®txpool.statusÊü•ÁúãÂà∞ÔºåÊåñÁüøÂêéconsoleËæìÂÖ•deployedÂèØÁúãÂà∞addressÔºåÂ∞±ÊòØÊ≠§ÂêàÁ∫¶Âú∞ÂùÄ
 
 
-Õ⁄øÛ÷Æ∫Û£¨Ωª“◊æÕ–¥Ω¯«¯øÈ¡¥¡À°£¥À ±‘Ÿ≤Èø¥contractæÕƒ‹ø¥º˚”–µÿ÷∑¡À
+ÂêØÂä®ÊåñÁüøÔºåÊää‰∫§ÊòìÂÜôËøõÂå∫ÂùóÈìæ„ÄÇminer.start()ÔºåÁÑ∂ÂêéÂÖ≥Èó≠ÊåñÁüøminer.stop()
 
-/////////////Õ⁄øÛµΩƒ≥∏ˆ’Ê µµÿ÷∑/////////////////////////
+
+ÊåñÁüø‰πãÂêéÔºå‰∫§ÊòìÂ∞±ÂÜôËøõÂå∫ÂùóÈìæ‰∫Ü„ÄÇÊ≠§Êó∂ÂÜçÊü•ÁúãcontractÂ∞±ËÉΩÁúãËßÅÊúâÂú∞ÂùÄ‰∫Ü
+
+/////////////ÊåñÁüøÂà∞Êüê‰∏™ÁúüÂÆûÂú∞ÂùÄ/////////////////////////
 geth --etherbase 1 --mine  2>> geth.log // 1 is index: second account by creation order OR
 geth --etherbase '0xB16FC01EE749d4Db81F712E6747120323eebA8f7' --mine 2>> geth.log
 
@@ -89,7 +89,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"net_listening","params":[],"id":
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":73}' http://localhost:8545
 
 curl -X POST --data '{"jsonrpc":"2.0", "method": "eth_getStorageAt", "params": ["0xb13edd24707dfc039614c1c8927f2baafb36474c", "0x0", "latest"], "id": 1}' localhost:8545
-testsol ≤ø µÿ÷∑
+testsol ÈÉ®ÁΩ≤Âú∞ÂùÄ
 address: "0xb13edd24707dfc039614c1c8927f2baafb36474c",
   transactionHash: "0xac99518b20395665dfd9fae531f173e3de1a1466faf434d9cc6650a3228b8ec6"
 
