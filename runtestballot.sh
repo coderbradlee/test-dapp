@@ -1,6 +1,5 @@
 export GOROOT=/usr/lib/golang
-export GOPATH=/root/gopath
-export GOBIN=/root/gopath/bin
+export GOPATH=`pwd`
 
 rm -fr ballot
 go build -o ballot testballot
