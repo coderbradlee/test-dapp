@@ -75,17 +75,17 @@ func main() {
 	secondAccount:=common.HexToAddress("58185e1874446969fff65372b404af9a51842156")
 	voterStruct,_:=ballot.Voters(nil,addr)
 	fmt.Printf("voterStruct:%+v\n", voterStruct)
-	printVoters(ballot,auth,firstAccount)
-	printVoters(ballot,auth,secondAccount)
+	printVoters(ballot,firstAccount)
+	printVoters(ballot,secondAccount)
 	printProposals(ballot)
-	ballot.GiveRightToVote(auth,addr)
+	ballot.GiveRightToVote(auth,secondAccount)
 	ballot.Vote(auth,big.NewInt(int64(0)))
 	// ballot.Vote(auth,big.NewInt(int64(1)))
 	// ballot.Vote(auth,big.NewInt(int64(2)))
 	// ballot.Vote(auth,big.NewInt(int64(3)))
 	time.Sleep(2000 * time.Millisecond)
-	printVoters(ballot,auth,firstAccount)
-	printVoters(ballot,auth,secondAccount)
+	printVoters(ballot,firstAccount)
+	printVoters(ballot,secondAccount)
 	printProposals(ballot)
 
 }
@@ -102,7 +102,7 @@ func printProposals(ballot *Ballot) {
 		}
 	fmt.Println("///////////////////////////////////////")
 }
-func printVoters(ballot *Ballot,opts *bind.TransactOpts,addr common.Address) {
+func printVoters(ballot *Ballot,addr common.Address) {
 	fmt.Println("///////////////////////////////////////")
 	
 	voters, err :=ballot.Voters(nil,addr)
