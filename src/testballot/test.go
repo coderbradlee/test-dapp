@@ -8,7 +8,7 @@ import (
 	"time"
 	"context"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-  	_"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
+  	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
 	"github.com/ethereum/go-ethereum/ethclient"
 	_"github.com/ethereum/go-ethereum/rpc"
 	_"github.com/ethereum/go-ethereum/eth"
@@ -18,8 +18,108 @@ import (
 )
 
 
+func simed() {
+	var chairmanBalance = big.NewInt(10000000000000000000)
+	var secondBalance = big.NewInt(10000000000000000000)
+	var thirdBalance = big.NewInt(10000000000000000000)
+
+	chairmanKey, _ := crypto.GenerateKey()
+	chairmanAuth := bind.NewKeyedTransactor(chairmanKey)
+	chairmanAddr := chairmanAuth.From
+	chairmanAccount := core.GenesisAccount{Address: chairmanAddr, Balance: chairmanBalance}
+
+	secondKey, _ := crypto.GenerateKey()
+	secondAuth := bind.NewKeyedTransactor(secondKey)
+	secondAddr:=secondAuth.From
+	secondAccount := core.GenesisAccount{Address: secondAddr, Balance: secondBalance}
+
+	thirdKey, _ := crypto.GenerateKey();
+	thirdAuth := bind.NewKeyedTransactor(thirdKey)
+	thirdAddr:=thirdAuth.From
+	thirdAccount := core.GenesisAccount{Address: thirdAddr, Balance: thirdBalance}
+
+	fmt.Printf("Created simulated backend with chairman %v\n", chairmanAuth.From.Hex())
+	conn := backends.NewSimulatedBackend(chairmanAccount, secondAccount, thirdAccount)
+
+
+	var context = context.Background()
+	balance, err := conn.BalanceAt(context, common.HexToAddress(chairmanAddr), nil)
+
+	if (err != nil) {
+		fmt.Printf("chairman balance %v", err)
+	}
+
+	fmt.Printf("chairman balance : %v\n", balance)
+
+
+	var array1  = [32]byte{0:'a',1:'a'}
+	var array2  = [32]byte{0:'b',1:'b'}
+	var array3  = [32]byte{0:'c',1:'c'}
+	var array4  = [32]byte{0:'d',1:'d'}
+	var proposalNames =[][32]byte{array1,array2,array3,array4}
+
+	contractAddr, transaction, ballot, err := DeployBallot(chairmanAuth, conn, proposalNames)
+	if err != nil {
+		log.Fatalf("Failed to deploy new token contract: %v\n", err)
+	}
+	fmt.Printf("contract addr:%v\n", contractAddr.Hex())
+	fmt.Printf("Transaction hash: %v\n", transaction.Hash().Hex());
+	// Print the current (non existent) and pending name of the contract
+	addr, _ := ballot.Chairperson(nil)
+	fmt.Printf("Pre-mining Chairperson addr:%v\n", addr.Hex())
+
+	addr, _ = ballot.Chairperson(&bind.CallOpts{Pending: true})
+	fmt.Printf("Pre-mining Chairperson pending addr:%v\n", addr.Hex())
+
+	// Commit all pending transactions in the simulator and print the names again
+	conn.Commit()
+	addr, _ = ballot.Chairperson(nil)
+	fmt.Printf("Post-mining Chairperson addr:%v\n", addr.Hex())
+
+	addr, _ = ballot.Chairperson(&bind.CallOpts{Pending: true})
+	fmt.Printf("Post-mining Chairperson pending addr:%v\n", addr.Hex())
+
+	printVoters(ballot,chairmanAddr)
+	printVoters(ballot,secondAddr)
+	ballot.GiveRightToVote(chairmanAuth,secondAddr)
+	ballot.Vote(chairmanAuth,big.NewInt(int64(0)))
+	ballot.Vote(secondAuth,big.NewInt(int64(1)))
+	ballot.Vote(secondAuth,big.NewInt(int64(2)))
+	ballot.Vote(thirdAuth,big.NewInt(int64(3)))
+	printVoters(ballot,chairmanAddr)
+	printVoters(ballot,secondAddr)
+	printProposals(ballot)
+}
 func main() {
+	simed()
+}
+func printProposals(ballot *Ballot) {
+	fmt.Println("///////////////////////////////////////")
+	for i:=0;i<4;i++{
+			proposals, err :=ballot.Proposals(nil,big.NewInt(int64(i)))
+			// fmt.Printf("proposals:%s,%d\n", proposals.Name,proposals.VoteCount)
+			if err!=nil{
+					fmt.Println("error:%v",err)
+				}else{
+					fmt.Printf("%+v\n", proposals)	
+				}
+		}
+	fmt.Println("///////////////////////////////////////")
+}
+func printVoters(ballot *Ballot,addr common.Address) {
+	fmt.Println("///////////////////////////////////////")
 	
+	voters, err :=ballot.Voters(nil,addr)
+	if err!=nil{
+			fmt.Println("error:%v",err)
+		}else{
+			fmt.Printf("%+v\n", voters)	
+		}
+		
+	fmt.Println("///////////////////////////////////////")
+}
+
+func rpc() {
 	account0Transactor, err := bind.NewTransactor(strings.NewReader(key), "123456")
 	if err != nil {
 	    log.Fatalf("Failed to create authorized transactor: %v", err)
@@ -90,30 +190,4 @@ func main() {
 	printVoters(ballot,firstAccount)
 	printVoters(ballot,secondAccount)
 	printProposals(ballot)
-
-}
-func printProposals(ballot *Ballot) {
-	fmt.Println("///////////////////////////////////////")
-	for i:=0;i<4;i++{
-			proposals, err :=ballot.Proposals(nil,big.NewInt(int64(i)))
-			// fmt.Printf("proposals:%s,%d\n", proposals.Name,proposals.VoteCount)
-			if err!=nil{
-					fmt.Println("error:%v",err)
-				}else{
-					fmt.Printf("%+v\n", proposals)	
-				}
-		}
-	fmt.Println("///////////////////////////////////////")
-}
-func printVoters(ballot *Ballot,addr common.Address) {
-	fmt.Println("///////////////////////////////////////")
-	
-	voters, err :=ballot.Voters(nil,addr)
-	if err!=nil{
-			fmt.Println("error:%v",err)
-		}else{
-			fmt.Printf("%+v\n", voters)	
-		}
-		
-	fmt.Println("///////////////////////////////////////")
 }
