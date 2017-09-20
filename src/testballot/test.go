@@ -82,6 +82,7 @@ func simed() {
 	printVoters(ballot,secondAddr)
 	printVoters(ballot,thirdAddr)
 	ballot.GiveRightToVote(chairmanAuth,secondAddr)
+	ballot.GiveRightToVote(chairmanAuth,thirdAddr)
 	ballot.Vote(chairmanAuth,big.NewInt(int64(0)))
 	ballot.Vote(secondAuth,big.NewInt(int64(1)))
 	// ballot.Vote(secondAuth,big.NewInt(int64(2)))
