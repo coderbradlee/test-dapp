@@ -38,11 +38,11 @@ func simed() {
 	thirdAccount := core.GenesisAlloc{thirdAddr:{Balance: thirdBalance}}
 
 	fmt.Printf("Created simulated backend with chairman %v\n", chairmanAuth.From.Hex())
-	conn := backends.NewSimulatedBackend(chairmanAccount, secondAccount, thirdAccount)
+	conn := backends.NewSimulatedBackend(chairmanAccount)
 
 
 	var context = context.Background()
-	balance, err := conn.BalanceAt(context, common.HexToAddress(chairmanAddr), nil)
+	balance, err := conn.BalanceAt(context, chairmanAddr, nil)
 
 	if (err != nil) {
 		fmt.Printf("chairman balance %v", err)
