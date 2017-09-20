@@ -66,7 +66,7 @@ func main() {
 
 	// Commit all pending transactions in the simulator and print the names again
 	//sim.Commit()
-	time.Sleep(2000 * time.Millisecond)
+	time.Sleep(4000 * time.Millisecond)
 	addr, _ = ballot.Chairperson(nil)
 	fmt.Printf("Post-mining Chairperson addr:%v\n", addr.Hex())
 
