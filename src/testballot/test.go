@@ -160,7 +160,9 @@ func main() {
 		printBallot(ballot)
 		ballot.GiveRightToVote(auth,addr)
 		ballot.Vote(auth,big.NewInt(int64(0)))
+		ballot.Vote(auth,big.NewInt(int64(1)))
 		ballot.Vote(auth,big.NewInt(int64(2)))
+		ballot.Vote(auth,big.NewInt(int64(3)))
 		time.Sleep(2000 * time.Millisecond)
 		printBallot(ballot)
 	}
