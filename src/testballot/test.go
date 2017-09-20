@@ -156,18 +156,19 @@ func main() {
 
 		voterStruct,_:=ballot.Voters(nil,addr)
 		fmt.Printf("voterStruct:%+v\n", voterStruct)
-		
-		printBallot(ballot)
+		printVoters(common.HexToAddress("390bae9e7e9684a09b1aa73590eee3e78add44a0"))
+		printVoters(common.HexToAddress("58185e1874446969fff65372b404af9a51842156"))
+		printProposals(ballot)
 		ballot.GiveRightToVote(auth,addr)
 		ballot.Vote(auth,big.NewInt(int64(0)))
 		// ballot.Vote(auth,big.NewInt(int64(1)))
 		// ballot.Vote(auth,big.NewInt(int64(2)))
 		// ballot.Vote(auth,big.NewInt(int64(3)))
 		time.Sleep(2000 * time.Millisecond)
-		printBallot(ballot)
+		printProposals(ballot)
 	}
 }
-func printBallot(ballot *Ballot) {
+func printProposals(ballot *Ballot) {
 	fmt.Println("///////////////////////////////////////")
 	for i:=0;i<4;i++{
 			proposals, err :=ballot.Proposals(nil,big.NewInt(int64(i)))
@@ -178,5 +179,17 @@ func printBallot(ballot *Ballot) {
 					fmt.Printf("%+v\n", proposals)	
 				}
 		}
+	fmt.Println("///////////////////////////////////////")
+}
+func printVoters(ballot *Ballot,addr common.Address) {
+	fmt.Println("///////////////////////////////////////")
+	
+	voters, err :=ballot.Voters(addr)
+	if err!=nil{
+			fmt.Println("error:%v",err)
+		}else{
+			fmt.Printf("%+v\n", voters)	
+		}
+		
 	fmt.Println("///////////////////////////////////////")
 }
