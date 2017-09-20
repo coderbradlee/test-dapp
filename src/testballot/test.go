@@ -26,17 +26,16 @@ func simed() {
 	chairmanKey, _ := crypto.GenerateKey()
 	chairmanAuth := bind.NewKeyedTransactor(chairmanKey)
 	chairmanAddr := chairmanAuth.From
-	chairmanAccount := core.GenesisAccount{Address: chairmanAddr, Balance: chairmanBalance}
-
+	chairmanAccount := core.GenesisAccount{chairmanAddr:{Balance: chairmanBalance}}
 	secondKey, _ := crypto.GenerateKey()
 	secondAuth := bind.NewKeyedTransactor(secondKey)
 	secondAddr:=secondAuth.From
-	secondAccount := core.GenesisAccount{Address: secondAddr, Balance: secondBalance}
+	secondAccount := core.GenesisAccount{secondAddr:{Balance: secondBalance}}
 
 	thirdKey, _ := crypto.GenerateKey();
 	thirdAuth := bind.NewKeyedTransactor(thirdKey)
 	thirdAddr:=thirdAuth.From
-	thirdAccount := core.GenesisAccount{Address: thirdAddr, Balance: thirdBalance}
+	thirdAccount := core.GenesisAccount{thirdAddr:{Balance: thirdBalance}}
 
 	fmt.Printf("Created simulated backend with chairman %v\n", chairmanAuth.From.Hex())
 	conn := backends.NewSimulatedBackend(chairmanAccount, secondAccount, thirdAccount)
