@@ -19,9 +19,9 @@ import (
 
 
 func simed() {
-	var chairmanBalance = big.NewInt(10000000000000000000)
-	var secondBalance = big.NewInt(10000000000000000000)
-	var thirdBalance = big.NewInt(10000000000000000000)
+	var chairmanBalance = big.NewInt(100000000000000000)
+	var secondBalance = big.NewInt(100000000000000000)
+	var thirdBalance = big.NewInt(100000000000000000)
 
 	chairmanKey, _ := crypto.GenerateKey()
 	chairmanAuth := bind.NewKeyedTransactor(chairmanKey)
