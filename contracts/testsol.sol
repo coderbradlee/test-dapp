@@ -65,7 +65,7 @@ contract Ballot {
     ///
     function delegate(address to) {
         // assigns reference
-        Voter sender = voters[msg.sender];
+        Voter storage sender = voters[msg.sender];
         require(!sender.voted);
 
         // Self-delegation is not allowed.
