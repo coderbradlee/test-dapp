@@ -82,7 +82,7 @@ func main() {
 	printProposals(ballot)
 	ballot.GiveRightToVote(account0Transactor,secondAccount)
 	ballot.Vote(account0Transactor,big.NewInt(int64(0)))
-	// ballot.Vote(account0Transactor,big.NewInt(int64(1)))
+	ballot.Vote(account1Transactor,big.NewInt(int64(1)))
 	// ballot.Vote(account0Transactor,big.NewInt(int64(2)))
 	// ballot.Vote(account0Transactor,big.NewInt(int64(3)))
 	time.Sleep(2000 * time.Millisecond)
