@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.0;
 
 /// @title Voting with delegation.
 contract Ballot {
@@ -61,8 +61,6 @@ contract Ballot {
     }
 
     /// Delegate your vote to the voter `to`.
-    ///sender's delegate set to `to`
-    ///
     function delegate(address to) {
         // assigns reference
         Voter storage sender = voters[msg.sender];
