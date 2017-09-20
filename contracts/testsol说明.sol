@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.0;
 
 /// @title Voting with delegation.
 contract Ballot {
@@ -89,13 +89,13 @@ contract Ballot {
         // Since `sender` is a reference, this
         // modifies `voters[msg.sender].voted`
         sender.voted = true;
-        sender.delegate = to;
+        sender.delegate = to;///发送者的delegate字段设置为to，由to来代替sender投票，投给delegate支持的人
         Voter storage delegates = voters[to];
-        if (delegates.voted) {
+        if (delegates.voted) {//代理者to已经投过票
             // If the delegate already voted,
             // directly add to the number of votes
             proposals[delegates.vote].voteCount += sender.weight;
-        } else {
+        } else {//代理者to未投票
             // If the delegate did not vote yet,
             // add to her weight.
             delegates.weight += sender.weight;
