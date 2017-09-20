@@ -1,3 +1,6 @@
+
+git config --global credential.helper wincred
+git 记住密码
 //geth --datadir "ethdevdata" --dev --rpc --rpcaddr "0.0.0.0" console 2>>file_to_log_output
 geth --identity "phoenix"  --rpc  --rpccorsdomain "*" --datadir "/root/ethdevdata"  --dev --rpc --rpcaddr "0.0.0.0" --rpcapi "db,eth,net,web3" --networkid 98888 console 2>>file_to_log_output
 //启动另一个终端来作为console
