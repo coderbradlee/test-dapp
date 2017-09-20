@@ -73,8 +73,8 @@ func main() {
 
 	voterStruct,_:=ballot.Voters(nil,addr)
 	fmt.Printf("voterStruct:%+v\n", voterStruct)
-	printVoters(common.HexToAddress("390bae9e7e9684a09b1aa73590eee3e78add44a0"))
-	printVoters(common.HexToAddress("58185e1874446969fff65372b404af9a51842156"))
+	printVoters(ballot,common.HexToAddress("390bae9e7e9684a09b1aa73590eee3e78add44a0"))
+	printVoters(ballot,common.HexToAddress("58185e1874446969fff65372b404af9a51842156"))
 	printProposals(ballot)
 	ballot.GiveRightToVote(auth,addr)
 	ballot.Vote(auth,big.NewInt(int64(0)))
@@ -82,6 +82,8 @@ func main() {
 	// ballot.Vote(auth,big.NewInt(int64(2)))
 	// ballot.Vote(auth,big.NewInt(int64(3)))
 	time.Sleep(2000 * time.Millisecond)
+	printVoters(ballot,common.HexToAddress("390bae9e7e9684a09b1aa73590eee3e78add44a0"))
+	printVoters(ballot,common.HexToAddress("58185e1874446969fff65372b404af9a51842156"))
 	printProposals(ballot)
 
 }
