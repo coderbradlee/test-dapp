@@ -105,7 +105,7 @@ func printProposals(ballot *Ballot) {
 func printVoters(ballot *Ballot,opts *bind.TransactOpts,addr common.Address) {
 	fmt.Println("///////////////////////////////////////")
 	
-	voters, err :=ballot.Voters(opts,addr)
+	voters, err :=ballot.Voters(nil,addr)
 	if err!=nil{
 			fmt.Println("error:%v",err)
 		}else{
