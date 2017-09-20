@@ -97,7 +97,7 @@ func simed() {
 	printVoters(ballot,secondAddr)
 	printVoters(ballot,thirdAddr)
 	printProposals(ballot)
-	winnner,_:=ballot.WinnerName()
+	winnner,_:=ballot.WinnerName(nil)
 	fmt.Println(winnner)
 }
 func main() {
