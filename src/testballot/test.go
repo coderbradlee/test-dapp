@@ -80,13 +80,16 @@ func simed() {
 
 	printVoters(ballot,chairmanAddr)
 	printVoters(ballot,secondAddr)
+	printVoters(ballot,thirdAddr)
 	ballot.GiveRightToVote(chairmanAuth,secondAddr)
 	ballot.Vote(chairmanAuth,big.NewInt(int64(0)))
 	ballot.Vote(secondAuth,big.NewInt(int64(1)))
 	ballot.Vote(secondAuth,big.NewInt(int64(2)))
 	ballot.Vote(thirdAuth,big.NewInt(int64(3)))
+	conn.Commit()
 	printVoters(ballot,chairmanAddr)
 	printVoters(ballot,secondAddr)
+	printVoters(ballot,thirdAddr)
 	printProposals(ballot)
 }
 func main() {
@@ -114,8 +117,6 @@ func printVoters(ballot *Ballot,addr common.Address) {
 		}else{
 			fmt.Printf("%+v\n", voters)	
 		}
-		
-	fmt.Println("///////////////////////////////////////")
 }
 
 func rpc() {
