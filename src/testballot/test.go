@@ -107,9 +107,9 @@ func testrpc() {//conn to testrpc method
 	chairmanAddr:=common.HexToAddress("4611f13ccafb5acaf2c1909d26f5dbb7d4d774a0")
 	secondAddr:=common.HexToAddress("6a1ae1d9f9ade400154c97d61613e4b0164d5710")
 	thirdAddr:=common.HexToAddress("2e1803b56353a2e0f318610cb7f1517d52c247b0")
-	chairmanAuth:=bind.TransactOpts{From:chairmanAddr}
-	secondAuth:=bind.TransactOpts{From:secondAddr}
-	thirdAuth:=bind.TransactOpts{From:thirdAddr}
+	chairmanAuth:=&bind.TransactOpts{From:chairmanAddr}
+	secondAuth:=&bind.TransactOpts{From:secondAddr}
+	thirdAuth:=&bind.TransactOpts{From:thirdAddr}
 
 	conn, err := ethclient.Dial("http://localhost:8545")
 	if err != nil {
