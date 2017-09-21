@@ -1,4 +1,7 @@
-﻿
+﻿infura
+truffle
+testrpc
+
 git config --global credential.helper wincred
 git 记住密码
 //geth --datadir "ethdevdata" --dev --rpc --rpcaddr "0.0.0.0" console 2>>file_to_log_output
@@ -108,3 +111,8 @@ address: "0xb13edd24707dfc039614c1c8927f2baafb36474c",
   curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getCompilers","params":[],"id":1}' localhost:8545
 
   curl -X POST --data '{"jsonrpc":"2.0","method":"eth_compileSolidity","params":["contract test { function multiply(uint a) returns(uint d) {   return a * 7;   } }"],"id":1}' localhost:8545
+
+
+  //testrpc 测试智能合约,“truffle console”下执行
+  Ballot.deployed()
+  写js测试

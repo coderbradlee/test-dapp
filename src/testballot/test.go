@@ -101,7 +101,76 @@ func simed() {
 	fmt.Println(winnner)
 }
 func main() {
-	simed()
+	testrpc()
+}
+func testrpc() {//conn to testrpc method
+	chairmanAddr:=common.HexToAddress("4611f13ccafb5acaf2c1909d26f5dbb7d4d774a0")
+	secondAddr:=common.HexToAddress("6a1ae1d9f9ade400154c97d61613e4b0164d5710")
+	thirdAddr:=common.HexToAddress("2e1803b56353a2e0f318610cb7f1517d52c247b0")
+	chairmanAuth:=bind.TransactOpts{From:chairmanAddr}
+	secondAuth:=bind.TransactOpts{From:secondAddr}
+	thirdAuth:=bind.TransactOpts{From:thirdAddr}
+
+	conn, err := ethclient.Dial("http://localhost:8545")
+	if err != nil {
+		log.Fatalf("Failed to connect to the Ethereum client: %v", err)
+	}
+	var context = context.Background()
+	balance, err := conn.BalanceAt(context, chairmanAddr, nil)
+
+	if (err != nil) {
+		fmt.Printf("chairman balance %v", err)
+	}
+
+	fmt.Printf("chairman balance : %v\n", balance)
+
+
+	var array1  = [32]byte{0:'a',1:'a'}
+	var array2  = [32]byte{0:'b',1:'b'}
+	var array3  = [32]byte{0:'c',1:'c'}
+	var array4  = [32]byte{0:'d',1:'d'}
+	var proposalNames =[][32]byte{array1,array2,array3,array4}
+
+	contractAddr, transaction, ballot, err := DeployBallot(chairmanAuth, conn, proposalNames)
+	if err != nil {
+		log.Fatalf("Failed to deploy new token contract: %v\n", err)
+	}
+	fmt.Printf("contract addr:%v\n", contractAddr.Hex())
+	fmt.Printf("Transaction hash: %v\n", transaction.Hash().Hex());
+	// Print the current (non existent) and pending name of the contract
+	addr, _ := ballot.Chairperson(nil)
+	fmt.Printf("Pre-mining Chairperson addr:%v\n", addr.Hex())
+
+	addr, _ = ballot.Chairperson(&bind.CallOpts{Pending: true})
+	fmt.Printf("Pre-mining Chairperson pending addr:%v\n", addr.Hex())
+
+	addr, _ = ballot.Chairperson(nil)
+	fmt.Printf("Post-mining Chairperson addr:%v\n", addr.Hex())
+
+	addr, _ = ballot.Chairperson(&bind.CallOpts{Pending: true})
+	fmt.Printf("Post-mining Chairperson pending addr:%v\n", addr.Hex())
+
+	printVoters(ballot,chairmanAddr)
+	printVoters(ballot,secondAddr)
+	printVoters(ballot,thirdAddr)
+	ballot.GiveRightToVote(chairmanAuth,secondAddr)
+	ballot.GiveRightToVote(chairmanAuth,thirdAddr)
+	ballot.Vote(chairmanAuth,big.NewInt(int64(0)))
+	// ballot.Vote(secondAuth,big.NewInt(int64(1)))
+	
+	// ballot.Vote(secondAuth,big.NewInt(int64(2)))
+	ballot.Vote(thirdAuth,big.NewInt(int64(3)))
+	//设置third由second代理投票，分别测试second投票前和投票后的情况
+	ballot.Delegate(thirdAuth,secondAddr)
+	//如果second已经投票，则此函数会将third的票累积到second投的人身上，若second未投票，则second.weight+=third。weight
+	ballot.Vote(secondAuth,big.NewInt(int64(1)))
+	
+	printVoters(ballot,chairmanAddr)
+	printVoters(ballot,secondAddr)
+	printVoters(ballot,thirdAddr)
+	printProposals(ballot)
+	winnner,_:=ballot.WinnerName(nil)
+	fmt.Println(winnner)
 }
 func printProposals(ballot *Ballot) {
 	fmt.Println("///////////////////////////////////////")
