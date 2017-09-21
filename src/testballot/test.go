@@ -118,6 +118,7 @@ func testrpc() {//conn to testrpc method
 	var context = context.Background()
 	balance, err := conn.BalanceAt(context, chairmanAddr, nil)
 
+	fmt.Println("//////////////////////////////////////////////////////")
 	if (err != nil) {
 		fmt.Printf("chairman balance %v", err)
 	}
