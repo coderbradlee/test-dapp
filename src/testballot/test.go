@@ -120,7 +120,7 @@ func testrpc() {//conn to testrpc method
 
 	fmt.Println("//////////////////////////////////////////////////////")
 	if (err != nil) {
-		fmt.Printf("chairman balance %v", err)
+		fmt.Printf("chairman balance %v\n", err)
 	}
 
 	fmt.Printf("chairman balance : %v\n", balance)
