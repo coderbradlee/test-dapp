@@ -116,3 +116,70 @@ address: "0xb13edd24707dfc039614c1c8927f2baafb36474c",
   //testrpc 测试智能合约,“truffle console”下执行
   Ballot.deployed()
   写js测试
+
+
+  特别变量和函数
+一些特别变量和函数已收入在全局命名空间里。
+Block and Transaction Properties
+块和资产交易
+• block.coinbase (address): current block miner's address
+当前块的矿工地址
+• block.difficulty (uint): current block difficulty
+当前块难度定义
+• block.gaslimit (uint): current block gaslimit
+当前块的瓦斯限额
+• block.number (uint): current block number
+当前块数字标识
+• block.blockhash (function(uint) returns (hash)): hash of the given block
+获取给定块的散列Hash
+• block.timestamp (uint): current block timestamp
+当前块的时间戳
+• msg.data (bytes): complete calldata
+完整的调用数据
+• msg.gas (uint): remaining gas
+剩余的瓦斯值
+• msg.sender (address): sender of the message (current call)
+消息发送函数（当前调用）
+• msg.value (uint): number of wei sent with the message
+随消息发送的交易费数值，以wei（微）计量。
+• tx.gasprice (uint): gas price of the transaction
+完成交易的瓦斯价格
+• tx.origin (address): sender of the transaction (full call chain)
+交易发送函数（全链调用？）
+
+秘钥函数
+• sha3(...) returns (hash): compute the SHA3 hash of the (tightly packed) arguments
+计算SHA3散列,紧凑排列
+• sha256(...) returns (hash): compute the SHA256 hash of the (tightly packed) arguments
+计算SHA256散列,紧凑排列
+• ripemd160(...) returns (hash160): compute RIPEMD of 256 the (tightly packed) arguments
+计算RIPEMD160散列,紧凑排列
+• ecrecover(hash, hash8, hash, hash) returns (address): recover public key from elliptic curve signature
+从椭圆曲线签名中恢复公钥
+
+上述“紧凑”意味着自变量是无间隔连接着的，例：
+sha3("ab", "c") == sha3("abc") == sha3(0x616263) == sha3(6382179) = sha3(97, 98, 99).
+如果需要间隔，会用到特定类型转换。
+
+合约相关
+• this (current contract's type): the current contract, explicitly convertible to address
+指定当前合约，明确可转换的地址
+• suicide(address): suicide the current contract, sending its funds to the given address
+消除当前合约，发送其资金到给定地址；
+
+而且，当前合约的所有函数都是直接可调用的，包括当前函数。
+
+地址相关函数
+查询某一地址的余额可用属性balance ，或以send发送以太币（以Wei为单位）到一地址。
+address x = 0x123;
+if (x.balance < 10 && address(this).balance >= 10) x.send(10);
+
+而且，与合约的接口不能依附于ABI（如传统的NameReg合约），函数调用会获得一个任意类型变量的任意数值。这些自变量是ABI的序列化 （如：也填充到32bytes）。一个异常情况是首自变量仅是4bytes编码。这种情况下，并不是以填充(位数)允许签名函数在此应用。
+address nameReg = 0x72ba7d8e73fe8eb666ea66babc8116a41bfb10e2;
+nameReg.call("register", "MyName");
+nameReg.call(string4(string32(sha3("fun(uint256)"))), a);
+
+注意合约继承了所有地址成员，有可能使用this.balance来查询当前合约的余额。
+
+表达式的评估命令
+表达式评估的指令并未特别指定（更正式说，在表达式树中子节点的评估指令是未指定的，但这些当然是在节点自身之前就评估了的）。能确保的是顺序语句执行和布尔型短路表达式是可以的。

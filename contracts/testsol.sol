@@ -48,13 +48,16 @@ contract Ballot {
     function testmsg()constant returns (address) {
         return msg.sender;
     }
-    function testdata()returns ([]byte) {
+    function testdata()returns (bytes) {
         return msg.data;
-    function testvalue()constant returns (*BigInt) {
-        return msg.Value;
+    function testvalue()constant returns (uint) {
+        return msg.value;
     }
-    function testGasPrice()constant returns (*BigInt) {
-        return msg.GasPrice;
+    function testGasPrice()constant returns (uint) {
+        return tx.gasprice;
+    }
+    function testgas()constant returns (uint) {
+        return msg.gas;
     }
     // Give `voter` the right to vote on this ballot.
     // May only be called by `chairperson`.

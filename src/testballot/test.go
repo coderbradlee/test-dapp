@@ -107,6 +107,8 @@ func simed() {
 	fmt.Printf("testvalue :%v\n", testvalue)
 	testGasPrice,_:=ballot.TestGasPrice(nil)
 	fmt.Printf("testGasPrice:%v\n", testGasPrice)
+	testgas,_:=ballot.TestGas(nil)
+	fmt.Printf("testGas:%v\n", testgas)
 }
 func main() {
 	// testrpc()
