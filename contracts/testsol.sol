@@ -45,7 +45,10 @@ contract Ballot {
             }));
         }
     }
-
+    function testmsg()return address {
+        return msg.sender;
+        
+    }
     // Give `voter` the right to vote on this ballot.
     // May only be called by `chairperson`.
     function giveRightToVote(address voter) {
