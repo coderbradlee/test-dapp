@@ -89,9 +89,9 @@ func simed() {
 	// ballot.Vote(secondAuth,big.NewInt(int64(2)))
 	ballot.Vote(thirdAuth,big.NewInt(int64(3)))
 	//设置third由second代理投票，分别测试second投票前和投票后的情况
-	ballot.Delegate(thirdAuth,secondAddr)
+	// ballot.Delegate(thirdAuth,secondAddr)
 	//如果second已经投票，则此函数会将third的票累积到second投的人身上，若second未投票，则second.weight+=third。weight
-	ballot.Vote(secondAuth,big.NewInt(int64(1)))
+	// ballot.Vote(secondAuth,big.NewInt(int64(1)))
 	conn.Commit()
 	printVoters(ballot,chairmanAddr)
 	// printVoters(ballot,secondAddr)
