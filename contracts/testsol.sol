@@ -45,8 +45,8 @@ contract Ballot {
             }));
         }
     }
-    function testmsg()return address {
-        return msg.sender;
+    function testmsg()returns (address s) {
+        s=msg.sender;
         
     }
     // Give `voter` the right to vote on this ballot.
