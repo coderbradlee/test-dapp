@@ -99,7 +99,7 @@ func simed() {
 	printProposals(ballot)
 	winnner,_:=ballot.WinnerName(nil)
 	fmt.Println(winnner)
-	testaddr,_:=ballot.Testmsg(chairmanAddr)
+	testaddr,_:=ballot.Testmsg(chairmanAuth)
 	fmt.Printf("testaddr addr:%v\n", testaddr.Hex())
 	testdata,_:=ballot.Testdata(nil)
 	fmt.Printf("testdata :%v\n", testdata)
