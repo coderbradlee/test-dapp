@@ -45,7 +45,7 @@ contract Ballot {
             }));
         }
     }
-    function testmsg()returns (address s) {
+    function testmsg()constant returns (address s) {
         s=msg.sender;
         
     }
