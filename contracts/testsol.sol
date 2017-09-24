@@ -47,7 +47,7 @@ contract Ballot {
     }
     function testmsg()constant returns (address s) {
         s=msg.sender;
-        
+        return s;
     }
     // Give `voter` the right to vote on this ballot.
     // May only be called by `chairperson`.
