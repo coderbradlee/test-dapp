@@ -99,9 +99,12 @@ func simed() {
 	printProposals(ballot)
 	winnner,_:=ballot.WinnerName(nil)
 	fmt.Println(winnner)
+	testaddr,_:=ballot.Testmsg(nil)
+	fmt.Printf("testaddr addr:%v\n", testaddr.Hex())
 }
 func main() {
-	testrpc()
+	// testrpc()
+	simed()
 }
 func testrpc() {//conn to testrpc method
 	chairmanAddr:=common.HexToAddress("4611f13ccafb5acaf2c1909d26f5dbb7d4d774a0")
