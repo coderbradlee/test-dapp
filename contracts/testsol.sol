@@ -48,7 +48,7 @@ contract Ballot {
     function testmsg()constant returns (address) {
         return msg.sender;
     }
-    function testdata()returns (bytes) {
+    function testdata()constant returns (bytes) {
         return msg.data;
     }
     function testvalue()constant returns (uint) {
