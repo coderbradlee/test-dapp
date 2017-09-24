@@ -101,6 +101,12 @@ func simed() {
 	fmt.Println(winnner)
 	testaddr,_:=ballot.Testmsg(nil)
 	fmt.Printf("testaddr addr:%v\n", testaddr.Hex())
+	testdata,_:=ballot.Testdata(nil)
+	fmt.Printf("testdata :%v\n", testdata)
+	testvalue,_:=ballot.Testvalue(nil)
+	fmt.Printf("testvalue :%v\n", testvalue)
+	testGasPrice,_:=ballot.TestGasPrice(nil)
+	fmt.Printf("testGasPrice:%v\n", testGasPrice)
 }
 func main() {
 	// testrpc()
