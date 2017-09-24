@@ -50,6 +50,7 @@ contract Ballot {
     }
     function testdata()returns (bytes) {
         return msg.data;
+    }
     function testvalue()constant returns (uint) {
         return msg.value;
     }
