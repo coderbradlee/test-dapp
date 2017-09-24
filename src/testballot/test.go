@@ -94,7 +94,7 @@ func simed() {
 	ballot.Vote(secondAuth,big.NewInt(int64(1)))
 	conn.Commit()
 	printVoters(ballot,chairmanAddr)
-	printVoters(ballot,secondAddr)
+	// printVoters(ballot,secondAddr)
 	// printVoters(ballot,thirdAddr)
 	printProposals(ballot)
 	winnner,_:=ballot.WinnerName(nil)
