@@ -172,6 +172,8 @@ func testrpc() {//conn to testrpc method
 	printProposals(ballot)
 	winnner,_:=ballot.WinnerName(nil)
 	fmt.Println(winnner)
+	testaddr,_=ballot.Testmsg(nil)
+	fmt.Printf("testaddr addr:%v\n", testaddr.Hex())
 }
 func printProposals(ballot *Ballot) {
 	fmt.Println("///////////////////////////////////////")
