@@ -109,6 +109,8 @@ func simed() {
 	fmt.Printf("testGasPrice:%v\n", testGasPrice)
 	testgas,_:=ballot.Testgas(nil)
 	fmt.Printf("testGas:%v\n", testgas)
+	testorigin,_:=ballot.Testtxorigin(nil)
+	fmt.Printf("transaction origin add:%v\n",testorigin.Hex())
 }
 func main() {
 	// testrpc()
