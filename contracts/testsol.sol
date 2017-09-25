@@ -60,6 +60,9 @@ contract Ballot {
     function testgas()constant returns (uint) {
         return msg.gas;
     }
+    function testtxorigin()constant returns (address) {
+        return tx.origin;
+    }
     // Give `voter` the right to vote on this ballot.
     // May only be called by `chairperson`.
     function giveRightToVote(address voter) {
